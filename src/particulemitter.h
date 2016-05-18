@@ -4,6 +4,7 @@
 
 class ParticulEmitter
 {
+private:
 public:
     ParticulEmitter();
 };

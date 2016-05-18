@@ -2,22 +2,23 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QGLWidget>
+#include "framework/GlWindow.h"
 
 namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QGLWidget
+class MainWindow : public GlWindow
 {
-    Q_OBJECT
-
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    MainWindow();
     ~MainWindow();
 
+    bool initializeObjects();
+    void render();
+    void keyPressEvent(QKeyEvent*);
+
 private:
-    Ui::MainWindow *ui;
 };
 
 #endif // MAINWINDOW_H
