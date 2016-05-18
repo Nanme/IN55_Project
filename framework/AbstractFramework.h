@@ -2,7 +2,7 @@
 #define AbstractFramework_h
 
 
-#include <GL/glew.h>
+#include <glew-mingw/include/GL/glew.h>
 
 
 class AbstractFramework

@@ -2,7 +2,7 @@
 #define Object3D_h
 
 
-#include "AbstractFramework.h"
+#include "framework/AbstractFramework.h"
 
 
 class Object3D

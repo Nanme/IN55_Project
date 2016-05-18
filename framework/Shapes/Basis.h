@@ -2,7 +2,7 @@
 #define Basis_h
 
 
-#include "Object3D.h"
+#include "framework/Object3D.h"
 
 
 class Basis : public Object3D

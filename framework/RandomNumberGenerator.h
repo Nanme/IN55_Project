@@ -2,7 +2,7 @@
 #define RandomNumberGenerator_h
 
 
-#include "Types.h"
+#include "framework/Types.h"
 
 
 class RandomNumberGenerator

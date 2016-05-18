@@ -2,7 +2,7 @@
 #define GlWindow_h
 
 
-#include "GlFramework.h"
+#include "framework/GlFramework.h"
 
 #include <QGLWidget>
 #include <QKeyEvent>

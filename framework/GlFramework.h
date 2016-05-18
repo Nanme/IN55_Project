@@ -2,7 +2,7 @@
 #define GlFramework_h
 
 
-#include "AbstractFramework.h"
+#include "framework/AbstractFramework.h"
 
 #include <QLinkedList>
 #include <QImage>

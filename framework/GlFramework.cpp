@@ -18,8 +18,8 @@
 #include <QGLWidget>
 #include <limits>
 #include <cmath>
-#include "LF_String.h"
-#include "Object3D.h"
+#include "framework/LF_String.h"
+#include "framework/Object3D.h"
 
 #include <iostream>
 

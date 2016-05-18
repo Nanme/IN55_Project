@@ -10,7 +10,7 @@
 //*****************************************************************************
 
 
-#include "Shapes/Basis.h"
+#include "framework/Shapes/Basis.h"
 
 
 GLfloat g_TabColors[] =
