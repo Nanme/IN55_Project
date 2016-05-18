@@ -1,0 +1,15 @@
+INPUT(
+./release\Basis.o
+./release\GlFramework.o
+./release\GlWindow.o
+./release\LF_String.o
+./release\Object3D.o
+./release\RandomNumberGenerator.o
+./release\main.o
+./release\mainwindow.o
+./release\particulsystem.o
+./release\particulemitter.o
+./release\renderer.o
+./release\objectpool.o
+./release\transform.o
+);
