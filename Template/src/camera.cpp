@@ -61,13 +61,7 @@ void Camera::translateY(float shift){
 }
 
 void Camera::translateZ(float shift){
-    std::cout << "Shift : " << shift << std::endl;
     m_position = m_position + ( (m_Orientation * Vec3(0.0f, 0.0f, -1.0f)) * shift);
-    std::cout << "shift" << shift << std::endl;
-    std::cout << "Après : (" << m_position.x << ", "
-         << m_position.y
-         << ", " << m_position.z
-         << ")" << std::endl;
 }
 
 void Camera::rotate(float angle, float ax, float ay, float az){

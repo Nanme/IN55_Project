@@ -14,7 +14,7 @@ Particle::Particle(Vec3 _startPosition, Vec3 _direction, float _speed, Camera* _
 
     distance = -1.0f;
     // ?????
-    torque = M_PI/4;
+    torque = 1.0f;
     currentRotationZ = 0.0f;
 
     camera = _camera;
@@ -119,27 +119,27 @@ void Particle::updateParticule(float deltaTime)
         std::cout << "speed : " << speed << std::endl;
 
         //?????????????
-        currentRotationZ = torque * deltaTime;
+        currentRotationZ += torque * deltaTime;
 
         calculateDistanceToCamera();
-
+        std::cout << "rotation : " << currentRotationZ << std::endl;
         //Get the rotation of the camera
         float tmpMat[4*4];
         camera->m_Orientation.setRotationMatrix(tmpMat);
-        std::cout << "( " << tmpMat[0]  << ", " <<  tmpMat[1]  << ", " << tmpMat[2]  << ", " << tmpMat[3]  << ")" << std::endl;
-        std::cout << "( " << tmpMat[4]  << ", " <<  tmpMat[5]  << ", " << tmpMat[6]  << ", " << tmpMat[7]  << ")" << std::endl;
-        std::cout << "( " << tmpMat[8]  << ", " <<  tmpMat[9]  << ", " << tmpMat[10] << ", " << tmpMat[11] << ")" << std::endl;
-        std::cout << "( " << tmpMat[12] << ", " <<  tmpMat[13] << ", " << tmpMat[14] << ", " << tmpMat[15] << ")" << std::endl;
+//        std::cout << "( " << tmpMat[0]  << ", " <<  tmpMat[1]  << ", " << tmpMat[2]  << ", " << tmpMat[3]  << ")" << std::endl;
+//        std::cout << "( " << tmpMat[4]  << ", " <<  tmpMat[5]  << ", " << tmpMat[6]  << ", " << tmpMat[7]  << ")" << std::endl;
+//        std::cout << "( " << tmpMat[8]  << ", " <<  tmpMat[9]  << ", " << tmpMat[10] << ", " << tmpMat[11] << ")" << std::endl;
+//        std::cout << "( " << tmpMat[12] << ", " <<  tmpMat[13] << ", " << tmpMat[14] << ", " << tmpMat[15] << ")" << std::endl;
 
 //        GLMatrix View = GLMatrix();
-        View.m[0][0] = tmpMat[0];    View.m[0][1] = tmpMat[1];    View.m[0][2] = tmpMat[2];    View.m[0][3] = tmpMat[3];
-        View.m[1][0] = tmpMat[4];    View.m[1][1] = tmpMat[5];    View.m[1][2] = tmpMat[6];    View.m[1][3] = tmpMat[7];
-        View.m[2][0] = tmpMat[8];    View.m[2][1] = tmpMat[9];    View.m[2][2] = tmpMat[10];   View.m[2][3] = tmpMat[11];
-        View.m[3][0] = tmpMat[12];   View.m[3][1] = tmpMat[13];   View.m[3][2] = tmpMat[14];   View.m[3][3] = tmpMat[15];
+        View.m[0][0] = tmpMat[0];    View.m[0][1] = tmpMat[4];    View.m[0][2] = tmpMat[8];    View.m[0][3] = tmpMat[12];
+        View.m[1][0] = tmpMat[1];    View.m[1][1] = tmpMat[5];    View.m[1][2] = tmpMat[9];    View.m[1][3] = tmpMat[13];
+        View.m[2][0] = tmpMat[2];    View.m[2][1] = tmpMat[6];    View.m[2][2] = tmpMat[10];   View.m[2][3] = tmpMat[14];
+        View.m[3][0] = tmpMat[3];   View.m[3][1] = tmpMat[7];   View.m[3][2] = tmpMat[11];   View.m[3][3] = tmpMat[15];
 
         GLMatrix rotation = GLMatrix();
-        rotation.m[0][0] = cos(M_PI/4);    rotation.m[0][1] = -sin(M_PI/4);    rotation.m[0][2] = 0.0f;    rotation.m[0][3] = 0.0f;
-        rotation.m[1][0] = sin(M_PI/4);    rotation.m[1][1] = cos(M_PI/4);     rotation.m[1][2] = 0.0f;    rotation.m[1][3] = 0.0f;
+        rotation.m[0][0] = cos(currentRotationZ);    rotation.m[0][1] = -sin(currentRotationZ);    rotation.m[0][2] = 0.0f;    rotation.m[0][3] = 0.0f;
+        rotation.m[1][0] = sin(currentRotationZ);    rotation.m[1][1] = cos(currentRotationZ);     rotation.m[1][2] = 0.0f;    rotation.m[1][3] = 0.0f;
         rotation.m[2][0] = 0.0f;                     rotation.m[2][1] = 0.0f;                      rotation.m[2][2] = 1.0f;    rotation.m[2][3] = 0.0f;
         rotation.m[3][0] = 0.0f;                     rotation.m[3][1] = 0.0f;                      rotation.m[3][2] = 0.0f;    rotation.m[3][3] = 1.0f;
 
@@ -156,13 +156,13 @@ void Particle::updateParticule(float deltaTime)
         model.m[3][0] = 0.0f;    model.m[3][1] = 0.0f;    model.m[3][2] = 0.0f;    model.m[3][3] = 1.0f;
 
         //We compute all matrix in model
-        model = model /** View * rotation*/;
-
-        std::cout << "-------------------------------------------" << std::endl << "rotation :" << "------------------------" << std::endl;
-        std::cout << "( " << model.data[0]  << ", " <<  model.data[1]  << ", " << model.data[2]  << ", " << model.data[3]  << ")" << std::endl;
-        std::cout << "( " << model.data[4]  << ", " <<  model.data[5]  << ", " << model.data[6]  << ", " << model.data[7]  << ")" << std::endl;
-        std::cout << "( " << model.data[8]  << ", " <<  model.data[9]  << ", " << model.data[10] << ", " << model.data[11] << ")" << std::endl;
-        std::cout << "( " << model.data[12] << ", " <<  model.data[13] << ", " << model.data[14] << ", " << model.data[15] << ")" << std::endl;
+        //model = model /** View * rotation*/;
+        model = View;
+//        std::cout << "-------------------------------------------" << std::endl << "rotation :" << "------------------------" << std::endl;
+//        std::cout << "( " << model.data[0]  << ", " <<  model.data[1]  << ", " << model.data[2]  << ", " << model.data[3]  << ")" << std::endl;
+//        std::cout << "( " << model.data[4]  << ", " <<  model.data[5]  << ", " << model.data[6]  << ", " << model.data[7]  << ")" << std::endl;
+//        std::cout << "( " << model.data[8]  << ", " <<  model.data[9]  << ", " << model.data[10] << ", " << model.data[11] << ")" << std::endl;
+//        std::cout << "( " << model.data[12] << ", " <<  model.data[13] << ", " << model.data[14] << ", " << model.data[15] << ")" << std::endl;
     }
     else
     {

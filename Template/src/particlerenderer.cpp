@@ -57,6 +57,9 @@ GLfloat *ParticleRenderer::uvCoor()
 void ParticleRenderer::drawShape()
 {
 
+    glDisable(GL_CULL_FACE);
+    glDisable(GL_DEPTH_TEST);
+
     //Indices version
     /*-------------------------------------------------------------------------------------
     //Attribute m_TabVertices to position var in shader.

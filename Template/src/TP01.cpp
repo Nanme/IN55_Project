@@ -127,11 +127,18 @@ TP01::render()
         g_particleSystem->update(frameRate);
 
         pushMatrix();
-            this->addCustomTransform(g_particleSystem->getPart()->View);
-//            this->addCustomTransform(g_particleSystem->getPart()->getModel());
+            //this->addCustomTransform(g_particleSystem->getPart()->View);
+            this->addCustomTransform(g_particleSystem->getPart()->getModel());
+            GLMatrix tmpMat = g_particleSystem->getPart()->getModel();
+
+            std::cout << "( " << tmpMat.data[0]  << ", " <<  tmpMat.data[1]  << ", " << tmpMat.data[2]  << ", " << tmpMat.data[3]  << ")" << std::endl;
+            std::cout << "( " << tmpMat.data[4]  << ", " <<  tmpMat.data[5]  << ", " << tmpMat.data[6]  << ", " << tmpMat.data[7]  << ")" << std::endl;
+            std::cout << "( " << tmpMat.data[8]  << ", " <<  tmpMat.data[9]  << ", " << tmpMat.data[10] << ", " << tmpMat.data[11] << ")" << std::endl;
+            std::cout << "( " << tmpMat.data[12] << ", " <<  tmpMat.data[13] << ", " << tmpMat.data[14] << ", " << tmpMat.data[15] << ")" << std::endl;
+
             g_particleSystem->getRenderer()->draw();
         popMatrix();
-        g_Basis->draw();
+//        g_Basis->draw();
 	popMatrix();    
 
 
