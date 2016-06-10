@@ -2,7 +2,7 @@
 #include <iostream>
 
 //Builder
-Particle::Particle(Vec3 _startPosition, Vec3 _speed, Camera* _camera)
+Particle::Particle(Vec3 _startPosition, Vec3 _speed, Camera* _camera, float _life)
 {
     position = _startPosition;
     speed = _speed;
@@ -10,8 +10,10 @@ Particle::Particle(Vec3 _startPosition, Vec3 _speed, Camera* _camera)
     speed_ini = speed;
 
      weight = 1.0f;
+     elast = 1.0f;
 
-    life = 5.0f;
+    life = _life;
+    life_ini = _life;
 
     distance = -1.0f;
     // ?????
@@ -22,17 +24,17 @@ Particle::Particle(Vec3 _startPosition, Vec3 _speed, Camera* _camera)
 }
 
 //Getter - Setter
-Vec3 Particle::getPosition() const
+Vec3 Particle::getPosition()
 {
     return position;
 }
 
-Vec3 Particle::getDirection() const
+Vec3 Particle::getSpeed()
 {
     return speed;
 }
 
-void Particle::setDirection(const Vec3 &value)
+void Particle::setSpeed(const Vec3 &value)
 {
     speed = value;
 }
@@ -40,13 +42,13 @@ void Particle::setDirection(const Vec3 &value)
 //Physical parameter
 
 
-float Particle::getWeight() const
+float Particle::getWeight()
 {
     return weight;
 }
 
 //Life
-float Particle::getLife() const
+float Particle::getLife()
 {
     return life;
 }
@@ -109,7 +111,7 @@ void Particle::updateParticule(float deltaTime)
     {
         initializeParticule();
 
-        life = 5.0f;
+        life = life_ini;
     }else{
     //Check if the particle is always alive
 
@@ -181,7 +183,7 @@ void Particle::initializeParticule(){
 
     position =position_ini;
     speed = speed_ini;
-    life = 5;
+    life = life_ini;
 }
 
 void Particle::calculateSquareDistanceToCamera()
@@ -192,4 +194,19 @@ void Particle::calculateSquareDistanceToCamera()
 bool operator<(const Particle &a, const Particle &b)
 {
     return a.getDistance()>b.getDistance();
+}
+
+float Particle::getElast()
+{
+    return elast;
+}
+
+void Particle::setElast(float _elast)
+{
+    elast = _elast;
+}
+
+void Particle::setLife_ini(float _life)
+{
+    life_ini = _life;
 }

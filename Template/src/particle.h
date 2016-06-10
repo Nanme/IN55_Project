@@ -15,9 +15,11 @@ private:
 
     //Physical parameter
     float weight;
+    float elast;
 
     //Life
     float life;
+    float life_ini;
 
     //Camera parameter
     float distance;
@@ -33,20 +35,22 @@ public:
 
     GLMatrix View;
     //Builder
-    Particle(Vec3 _startPosition, Vec3 _speed, Camera* _camera);
+    Particle(Vec3 _startPosition, Vec3 _speed, Camera* _camera, float _life = 5);
 
     //Getter - Setter
     //Center parameter
-    Vec3 getPosition() const;
-    Vec3 getDirection() const;
-    void setDirection(const Vec3 &value);
+    Vec3 getPosition() ;
+    Vec3 getSpeed() ;
+    void setSpeed(const Vec3 &value);
 
     //Physical parameter
-   // float getSpeed() const;
-    float getWeight() const;
+    float getElast() ;
+    void setElast(float);
+    float getWeight() ;
 
     //Life
-    float getLife() const;
+    float getLife() ;
+    void setLife_ini(float);
 
     //Camera parameter
     float getDistance() const;
