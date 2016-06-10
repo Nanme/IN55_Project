@@ -9,11 +9,11 @@ class Particle
 {
 private:
     //Center parameter
-    Vec3 position;
-    Vec3 direction;
+    Vec3 position, position_ini;
+    Vec3 speed, speed_ini;
+
 
     //Physical parameter
-    float speed;
     float weight;
 
     //Life
@@ -33,7 +33,7 @@ public:
 
     GLMatrix View;
     //Builder
-    Particle(Vec3 _startPosition, Vec3 _direction, float _speed, Camera* _camera);
+    Particle(Vec3 _startPosition, Vec3 _speed, Camera* _camera);
 
     //Getter - Setter
     //Center parameter
@@ -42,7 +42,7 @@ public:
     void setDirection(const Vec3 &value);
 
     //Physical parameter
-    float getSpeed() const;
+   // float getSpeed() const;
     float getWeight() const;
 
     //Life
@@ -63,10 +63,10 @@ public:
 
     //Particle modification
     void updateParticule(float deltaTime);
-    void initializeParticule(Vec3 _startPosition, Vec3 _direction, float _speed);
-
+    void initializeParticule(Vec3 _startPosition, Vec3 _speed);
+    void initializeParticule();
     //Utilities
-    void calculateDistanceToCamera();
+    void calculateSquareDistanceToCamera();
 };
 
 bool operator<(const Particle& a, const Particle& b);

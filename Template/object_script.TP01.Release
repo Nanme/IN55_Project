@@ -17,4 +17,5 @@ INPUT(
 ./obj\quaternion.o
 ./obj\particle.o
 ./obj\particlesystem.o
+./obj\particlepool.o
 );

@@ -1,10 +1,11 @@
 #include "particlesystem.h"
+#include "particlepool.h"
 
 GLfloat g_Vertices[6*3];
 
-Particle *ParticleSystem::getPart() const
+ParticlePool *ParticleSystem::getPart() const
 {
-    return part;
+    return PP;
 }
 
 ParticleRenderer *ParticleSystem::getRenderer() const
@@ -15,7 +16,17 @@ ParticleRenderer *ParticleSystem::getRenderer() const
 ParticleSystem::ParticleSystem(GLint _shader_ID, Camera* camera)
 {
     renderer = new ParticleRenderer("tex2d_pikachu.png", _shader_ID);
-    part = new Particle(Vec3(0.0f, 0.0f, 0.0f), Vec3(1.0f, 1.0f, 0.0f), 5.0f, camera);
+    PP = new ParticlePool(1.0f/30.f,camera);
+    PP->setGravite(Vec3(0,-9.81f,0));
+    PP->setxdownFloat(-10);
+    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(1.0f, 5.0f, 0.0f));
+    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(1.0f, 0.0f, 0.0f));
+    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(1.0f, 0.0f, 1.0f));
+    PP->push(Vec3(0.0f, 1.0f, 5.0f), Vec3(0.0f, 10.0f, 0.0f));
+    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 1.0f, 0.0f));
+
+
+    // part = new Particle(Vec3(0.0f, 0.0f, 0.0f), Vec3(1.0f, 1.0f, 0.0f), 5.0f, camera);
     this->shader_ID = _shader_ID;
 
 //   //Create vertices buffer
@@ -36,8 +47,8 @@ ParticleSystem::ParticleSystem(GLint _shader_ID, Camera* camera)
 
 ParticleSystem::~ParticleSystem()
 {
-    delete part;
-    delete renderer;
+    //delete part;
+    delete renderer,PP;
 }
 
 /*void ParticleSystem::drawShape()
@@ -143,7 +154,7 @@ void ParticleSystem::update(float deltaTime/*, GLMatrix ViewMatrix*/)
 //            break;
 //        }
 //    }
-    part->updateParticule(deltaTime);
+    PP->step();
 
 //    glBufferSubData(GL_ARRAY_BUFFER, 0, 4*sizeof(GLfloat), center);
 }

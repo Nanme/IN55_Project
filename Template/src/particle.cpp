@@ -2,13 +2,14 @@
 #include <iostream>
 
 //Builder
-Particle::Particle(Vec3 _startPosition, Vec3 _direction, float _speed, Camera* _camera)
+Particle::Particle(Vec3 _startPosition, Vec3 _speed, Camera* _camera)
 {
     position = _startPosition;
-    direction = _direction;
-
     speed = _speed;
-    weight = 1.0f;
+    position_ini = position;
+    speed_ini = speed;
+
+     weight = 1.0f;
 
     life = 5.0f;
 
@@ -28,19 +29,16 @@ Vec3 Particle::getPosition() const
 
 Vec3 Particle::getDirection() const
 {
-    return direction;
+    return speed;
 }
 
 void Particle::setDirection(const Vec3 &value)
 {
-    direction = value;
+    speed = value;
 }
 
 //Physical parameter
-float Particle::getSpeed() const
-{
-    return speed;
-}
+
 
 float Particle::getWeight() const
 {
@@ -103,25 +101,30 @@ void Particle::setCamera(Camera *value)
 //Particle modification
 void Particle::updateParticule(float deltaTime)
 {
+
+
     //Update lifetime of the particle
     life -= deltaTime;
-
-    //Check if the particle is always alive
-    if (life > 0.0f)
+    if (life <= 0.0f)
     {
+        initializeParticule();
+
+        life = 5.0f;
+    }else{
+    //Check if the particle is always alive
+
         std::cout << "life : " << life << " | deltaTime : " << deltaTime << std::endl;
         //Then we update the parameter of the center of the particle
-        direction = direction * speed * deltaTime;
-        position = position + direction;
-        direction.normalize();
+      //  direction = direction * speed * deltaTime;
+        position = position + speed*deltaTime;
+        //direction.normalize();
 
         std::cout << "position (" << position.x << ", " << position.y << ", " << position.z << ")" << std::endl;
-        std::cout << "speed : " << speed << std::endl;
 
         //?????????????
         currentRotationZ += torque * deltaTime;
 
-        calculateDistanceToCamera();
+        calculateSquareDistanceToCamera();
         std::cout << "rotation : " << currentRotationZ << std::endl;
         //Get the rotation of the camera
         float tmpMat[4*4];
@@ -157,38 +160,36 @@ void Particle::updateParticule(float deltaTime)
 
         //We compute all matrix in model
         //model = model /** View * rotation*/;
-        model = View;
+        model = model * View;
 //        std::cout << "-------------------------------------------" << std::endl << "rotation :" << "------------------------" << std::endl;
 //        std::cout << "( " << model.data[0]  << ", " <<  model.data[1]  << ", " << model.data[2]  << ", " << model.data[3]  << ")" << std::endl;
 //        std::cout << "( " << model.data[4]  << ", " <<  model.data[5]  << ", " << model.data[6]  << ", " << model.data[7]  << ")" << std::endl;
 //        std::cout << "( " << model.data[8]  << ", " <<  model.data[9]  << ", " << model.data[10] << ", " << model.data[11] << ")" << std::endl;
 //        std::cout << "( " << model.data[12] << ", " <<  model.data[13] << ", " << model.data[14] << ", " << model.data[15] << ")" << std::endl;
-    }
-    else
-    {
-        position = Vec3(0.0f, 0.0f, 0.0f);
-        direction = Vec3(1.0f, 1.0f, 0.0f);
-
-        life = 5.0f;
-    }
+}
 }
 
-void Particle::initializeParticule(Vec3 _startPosition, Vec3 _direction, float _speed)
+void Particle::initializeParticule(Vec3 _startPosition, Vec3 _speed )
 {
-    position = _startPosition;
-    direction = _direction;
-    speed = _speed;
-    life = 5.0f;
+    position_ini = _startPosition;
+    speed_ini = _speed;
+    //life = 5.0f;
+    initializeParticule();
+    //calculateDistanceToCamera();
+}
+void Particle::initializeParticule(){
 
-    calculateDistanceToCamera();
+    position =position_ini;
+    speed = speed_ini;
+    life = 5;
 }
 
-void Particle::calculateDistanceToCamera()
+void Particle::calculateSquareDistanceToCamera()
 {
-
+ distance = position.getSquaredEuclideanDistance(camera->getPosition());
 }
 
 bool operator<(const Particle &a, const Particle &b)
 {
-    return a.getDistance()<b.getDistance();
+    return a.getDistance()>b.getDistance();
 }

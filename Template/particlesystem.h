@@ -4,13 +4,15 @@
 #include "Object3D.h"
 #include "particlerenderer.h"
 #include "particle.h"
+#include "particlepool.h"
 
 class ParticleSystem //: public Object3D
 {
 private:
     ParticleRenderer* renderer;
 
-    Particle* part;
+    //Particle* part;
+    ParticlePool *PP;
 
     GLuint verticeRenderBuffer_ID;
     GLuint colorBuffer_ID;
@@ -23,7 +25,7 @@ public:
     ~ParticleSystem();
 //    void drawShape();
     void update(float deltaTime/*, GLMatrix ViewMatrix*/);
-    Particle *getPart() const;
+    ParticlePool *getPart() const;
     ParticleRenderer *getRenderer() const;
 };
 

@@ -34,7 +34,8 @@ HEADERS += \
     src/camera.h \
     src/quaternion.h \
     src/particle.h \
-    particlesystem.h
+    particlesystem.h \
+    src/particlepool.h
 
 SOURCES += \
     ../Common/GlFramework.cpp \
@@ -54,21 +55,22 @@ SOURCES += \
     src/camera.cpp \
     src/quaternion.cpp \
     src/particle.cpp \
-    particlesystem.cpp
+    particlesystem.cpp \
+    src/particlepool.cpp
 
 
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../Lib/SDL-2.0/lib/ -lSDL2
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../Lib/SDL-2.0/lib/ -lSDL2d
+#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../Lib/SDL-2.0/lib/ -lSDL2
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../Lib/SDL-2.0/lib/ -lSDL2d
 
-INCLUDEPATH += $$PWD/../../../../../Lib/SDL-2.0/include
-DEPENDPATH += $$PWD/../../../../../Lib/SDL-2.0/include
+#INCLUDEPATH += $$PWD/../../../../../Lib/SDL-2.0/include
+#DEPENDPATH += $$PWD/../../../../../Lib/SDL-2.0/include
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../Lib/SDL-2.0/lib/ -lSDL2_image
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../Lib/SDL-2.0/lib/ -lSDL2_imaged
+#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../Lib/SDL-2.0/lib/ -lSDL2_image
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../Lib/SDL-2.0/lib/ -lSDL2_imaged
 
-INCLUDEPATH += $$PWD/../../../../../Lib/SDL-2.0/include
-DEPENDPATH += $$PWD/../../../../../Lib/SDL-2.0/include
+#INCLUDEPATH += $$PWD/../../../../../Lib/SDL-2.0/include
+#DEPENDPATH += $$PWD/../../../../../Lib/SDL-2.0/include
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../Lib/SDL-2.0/lib/ -lSDL2main
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../Lib/SDL-2.0/lib/ -lSDL2maind
+#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../Lib/SDL-2.0/lib/ -lSDL2main
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../Lib/SDL-2.0/lib/ -lSDL2maind

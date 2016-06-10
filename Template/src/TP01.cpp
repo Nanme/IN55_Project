@@ -125,20 +125,28 @@ TP01::render()
 	// Rendu des objets
     pushMatrix();
         g_particleSystem->update(frameRate);
+        g_Basis->draw();
+        list<GLMatrix> *L = g_particleSystem->getPart()->getModels();
+        for(list<GLMatrix>::iterator i = L->begin(); i != L->end() ; ++i)
+        {
+            pushMatrix();
+                //this->addCustomTransform(g_particleSystem->getPart()->View);
+                this->addCustomTransform(*i);
+                //GLMatrix tmpMat = g_particleSystem->getPart()->getModel();
 
-        pushMatrix();
-            //this->addCustomTransform(g_particleSystem->getPart()->View);
-            this->addCustomTransform(g_particleSystem->getPart()->getModel());
-            GLMatrix tmpMat = g_particleSystem->getPart()->getModel();
+                //tmpMat.cout();
 
-            std::cout << "( " << tmpMat.data[0]  << ", " <<  tmpMat.data[1]  << ", " << tmpMat.data[2]  << ", " << tmpMat.data[3]  << ")" << std::endl;
-            std::cout << "( " << tmpMat.data[4]  << ", " <<  tmpMat.data[5]  << ", " << tmpMat.data[6]  << ", " << tmpMat.data[7]  << ")" << std::endl;
-            std::cout << "( " << tmpMat.data[8]  << ", " <<  tmpMat.data[9]  << ", " << tmpMat.data[10] << ", " << tmpMat.data[11] << ")" << std::endl;
-            std::cout << "( " << tmpMat.data[12] << ", " <<  tmpMat.data[13] << ", " << tmpMat.data[14] << ", " << tmpMat.data[15] << ")" << std::endl;
+                //std::cout << tmpMat;
+        //            std::cout << "( " << tmpMat.data[0]  << ", " <<  tmpMat.data[1]  << ", " << tmpMat.data[2]  << ", " << tmpMat.data[3]  << ")" << std::endl;
+        //            std::cout << "( " << tmpMat.data[4]  << ", " <<  tmpMat.data[5]  << ", " << tmpMat.data[6]  << ", " << tmpMat.data[7]  << ")" << std::endl;
+        //            std::cout << "( " << tmpMat.data[8]  << ", " <<  tmpMat.data[9]  << ", " << tmpMat.data[10] << ", " << tmpMat.data[11] << ")" << std::endl;
+        //            std::cout << "( " << tmpMat.data[12] << ", " <<  tmpMat.data[13] << ", " << tmpMat.data[14] << ", " << tmpMat.data[15] << ")" << std::endl;
 
-            g_particleSystem->getRenderer()->draw();
-        popMatrix();
-//        g_Basis->draw();
+                g_particleSystem->getRenderer()->draw();
+            popMatrix();
+
+        }
+      //  g_Basis->draw();
 	popMatrix();    
 
 
@@ -148,6 +156,8 @@ TP01::render()
 
     if(framefTime < frameRate)
         usleep((frameRate - framefTime) * 1000000);
+
+    delete L;
 }
 
 

@@ -8,7 +8,7 @@
 #include <QImage>
 #include <vector>
 #include <string>
-
+#include <iostream>
 
 struct GLMatrix
 {
@@ -19,6 +19,9 @@ struct GLMatrix
     };
 
     void setIdentity();
+public:
+    void cout(std::string s = "");
+
 };
 
 GLMatrix operator*(const GLMatrix &, const GLMatrix &);
