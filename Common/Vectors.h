@@ -157,8 +157,8 @@ class AbstractVec3
         }
 
 
-        float getSquaredEuclideanDistance( const AbstractVec3 & v ) const
-        { AbstractVec3 tmp = v - *this;
+        float getSquaredEuclideanDistance( const AbstractVec3 * v ) const
+        { AbstractVec3 tmp = *v - *this;
             return (tmp.x * tmp.x) + (tmp.y * tmp.y) + (tmp.z * tmp.z);
         }
 

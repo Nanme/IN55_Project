@@ -51,7 +51,10 @@ Vec3
 Camera::getPosition(){
     return m_position;
 }
-
+Vec3*
+Camera::getRefPosition(){
+    return &m_position;
+}
 void Camera::translateX(float shift){
     m_position = m_position + ( (m_Orientation * Vec3(-1.0f, 0.0f, 0.0f)) * shift);
 }
@@ -131,6 +134,11 @@ void Camera::rotateZ(float angle){
 GLMatrix const& Camera::getViewMatrix(){
     buildViewMatrix();
     return m_ViewMatrix;
+}
+
+GLMatrix * Camera::getRefViewMatrix(){
+    //buildViewMatrix();
+    return &m_ViewMatrix;
 }
 
 void Camera::setAspectRatio(float ar){

@@ -33,65 +33,58 @@ void ParticlePool::step()
 {
     for(vector<Particle>::iterator i = data.begin(); i != data.end(); ++i)
     {
-        i->setSpeed(i->getSpeed() + gravite*frameRate);
+        i->speed += gravite*frameRate;
         i->updateParticule(frameRate);
         if(floor)
         {
-            Vec3 tmp = i->getSpeed();
+
             if(i->getPosition().y < *floor)
             {
-                tmp.y = -tmp.y * i->getElast() ;
-                i->setSpeed(tmp);
-
+                i->speed.y = -i->speed.y * i->getElast() ;
             }
         }
         if(roof)
         {
-            Vec3 tmp = i->getSpeed();
+
             if(i->getPosition().y > *roof)
             {
-                tmp.y = -tmp.y* i->getElast() ;
-                i->setSpeed(tmp);
+                i->speed.y = -i->speed.y* i->getElast() ;
 
             }
         }
         if(wallxLeft)
         {
-            Vec3 tmp = i->getSpeed();
+
             if(i->getPosition().x < *wallxLeft)
             {
-                tmp.x = -tmp.x * i->getElast() ;
-                i->setSpeed(tmp);
+                i->speed.x = -i->speed.x * i->getElast() ;
 
             }
         }
         if(wallxRight)
         {
-            Vec3 tmp = i->getSpeed();
+
             if(i->getPosition().x > *wallxRight)
             {
-                tmp.x = -tmp.x * i->getElast() ;
-                i->setSpeed(tmp);
+                i->speed.x = -i->speed.x * i->getElast() ;
 
             }
         }
         if(wallzNear)
         {
-            Vec3 tmp = i->getSpeed();
+
             if(i->getPosition().z > *wallzNear)
             {
-                tmp.z = -tmp.z * i->getElast() ;
-                i->setSpeed(tmp);
+                i->speed.z = -i->speed.z * i->getElast() ;
 
             }
         }
         if(wallzFar)
         {
-            Vec3 tmp = i->getSpeed();
+
             if(i->getPosition().z < *wallzFar)
             {
-                tmp.z = -tmp.z * i->getElast() ;
-                i->setSpeed(tmp);
+                i->speed.z = -i->speed.z * i->getElast() ;
 
             }
         }

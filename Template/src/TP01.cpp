@@ -3,7 +3,7 @@
 
 #include "Shapes/Basis.h"
 #include "particlerenderer.h"
-#include "particlesystem.h"l"
+#include "particlesystem.h"
 
 #include <iostream>
 #include <cmath>
@@ -33,7 +33,7 @@ TP01::TP01()
 
     g_Basis = new Basis( 10.0 );
 
-    cout << "test";
+    //cout << "test";
     camera = new Camera(0.0f, 5.0f, 30.0f, 4.0f/3.0f, 0.3f, 1000.0f, 60.0f);
     timeStart = clock();
 
@@ -117,10 +117,10 @@ TP01::render()
     pViewMatrix = camera->getViewMatrix();
     pProjMatrix = camera->getProjectionMatrix();
 
-    cout << "Camera (" << camera->getPosition().x << ", "
-         << camera->getPosition().y
-         << ", " << camera->getPosition().z
-         << ")" << endl;
+//    cout << "Camera (" << camera->getPosition().x << ", "
+//         << camera->getPosition().y
+//         << ", " << camera->getPosition().z
+//         << ")" << endl;
 
 	// Rendu des objets
     pushMatrix();

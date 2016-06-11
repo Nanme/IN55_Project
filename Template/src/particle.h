@@ -10,7 +10,7 @@ class Particle
 private:
     //Center parameter
     Vec3 position, position_ini;
-    Vec3 speed, speed_ini;
+    Vec3 speed_ini;
 
 
     //Physical parameter
@@ -29,22 +29,24 @@ private:
     //OpenGL parameter
     GLMatrix model;
     Camera* camera;
+    GLMatrix *View;
+    Vec3* posCamera;
 
 public:
 
+    Vec3 speed;
 
-    GLMatrix View;
     //Builder
     Particle(Vec3 _startPosition, Vec3 _speed, Camera* _camera, float _life = 5);
 
     //Getter - Setter
     //Center parameter
-    Vec3 getPosition() ;
+    Vec3& getPosition() ;
     Vec3 getSpeed() ;
     void setSpeed(const Vec3 &value);
 
     //Physical parameter
-    float getElast() ;
+    float &getElast() ;
     void setElast(float);
     float getWeight() ;
 
@@ -66,7 +68,7 @@ public:
     void setCamera(Camera *value);
 
     //Particle modification
-    void updateParticule(float deltaTime);
+    void updateParticule(float& deltaTime);
     void initializeParticule(Vec3 _startPosition, Vec3 _speed);
     void initializeParticule();
     //Utilities

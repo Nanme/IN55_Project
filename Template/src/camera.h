@@ -20,7 +20,9 @@ public:
     void rotateY(float angle);
     void rotateZ(float angle);
     GLMatrix const& getViewMatrix();
+    GLMatrix * getRefViewMatrix();
     Vec3 getPosition();
+    Vec3* getRefPosition();
     void setAspectRatio(float ar);
     void setPlanes(float np, float fp);
     void setFOV(float angle);

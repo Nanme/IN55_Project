@@ -19,15 +19,15 @@ ParticleSystem::ParticleSystem(GLint _shader_ID, Camera* camera)
     renderer = new ParticleRenderer("tex2d_pikachu.png", _shader_ID);
     PP = new ParticlePool(1.0f/30.f,camera);
 
-    PP->setGravite(Vec3(10.0f,10.0f,5.0f));
+    PP->setGravite(Vec3(0.0f,0.0f,5.0f));
     PP->setFloor(-2.5f);
-    //PP->setWallxRight(2.5f);
+    PP->setWallxRight(2.5f);
     PP->setWallzNear(20.f);
     PP->setRoof(8.f);
     PP->setWallxLeft(-2.5f);
-   // PP->setWallzFar(-2.5f);
+    PP->setWallzFar(-2.5f);
 
-    const float ELAST = 1.0f, LIFE = 10.0f;
+    const float ELAST = 1.0f, LIFE = 5.0f;
 
     PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(1.0f, 5.0f, 0.0f),LIFE,ELAST);
     PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(1.0f, 0.0f, 0.0f),LIFE,ELAST);
@@ -41,6 +41,8 @@ ParticleSystem::ParticleSystem(GLint _shader_ID, Camera* camera)
     PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(3.0f, 1.0f, 0.0f),LIFE,ELAST);
     PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, -1.8f, 4.f),LIFE,ELAST);
     PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(3.0f, -1.0f, 4.0f),LIFE,ELAST);
+
+
 
     // part = new Particle(Vec3(0.0f, 0.0f, 0.0f), Vec3(1.0f, 1.0f, 0.0f), 5.0f, camera);
     this->shader_ID = _shader_ID;
