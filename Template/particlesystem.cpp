@@ -1,46 +1,36 @@
 #include "particlesystem.h"
 #include "particlepool.h"
 
-
-GLfloat g_Vertices[6*3];
-
-ParticlePool *ParticleSystem::getPart() const
+ParticleSystem::ParticleSystem(GLint _shader_ID, Camera* _camera, ParticleEmitter* _emitter)
 {
-    return PP;
-}
+    renderer = new ParticleRenderer("FireParticleSingleTexture.png", _shader_ID);
+    PP = new ParticlePool(1.0f/60.f,camera);
+    emitter = _emitter;
+    camera = _camera;
 
-ParticleRenderer *ParticleSystem::getRenderer() const
-{
-    return renderer;
-}
+    PP->setGravite(Vec3(0.0f,-1.0f,0.0f));
 
-ParticleSystem::ParticleSystem(GLint _shader_ID, Camera* camera)
-{
-    renderer = new ParticleRenderer("tex2d_pikachu.png", _shader_ID);
-    PP = new ParticlePool(1.0f/30.f,camera);
+//    PP->setFloor(-2.5f);
+//    PP->setWallxRight(2.5f);
+//    PP->setWallzNear(20.f);
+//    PP->setRoof(8.f);
+//    PP->setWallxLeft(-2.5f);
+//    PP->setWallzFar(-2.5f);
 
-    PP->setGravite(Vec3(0.0f,0.0f,5.0f));
-    PP->setFloor(-2.5f);
-    PP->setWallxRight(2.5f);
-    PP->setWallzNear(20.f);
-    PP->setRoof(8.f);
-    PP->setWallxLeft(-2.5f);
-    PP->setWallzFar(-2.5f);
+//    const float ELAST = 1.0f, LIFE = 5.0f;
 
-    const float ELAST = 1.0f, LIFE = 5.0f;
-
-    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(1.0f, 5.0f, 0.0f),LIFE,ELAST);
-    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(1.0f, 0.0f, 0.0f),LIFE,ELAST);
-    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(1.0f, 0.0f, 1.0f),LIFE,ELAST);
-    PP->push(Vec3(0.0f, 1.0f, 4.0f), Vec3(0.20f, 5.0f, 0.0f),LIFE,ELAST);
-    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(0.30f, 1.8f, 0.0f),LIFE,ELAST);
-    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 1.0f, 1.0f),LIFE,ELAST);
-    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f,- 1.0f, 5.0f),LIFE,ELAST);
-    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(4.0f, 1.5f, 0.0f),LIFE,ELAST);
-    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(2.0f, -1.5f, 0.0f),LIFE,ELAST);
-    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(3.0f, 1.0f, 0.0f),LIFE,ELAST);
-    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, -1.8f, 4.f),LIFE,ELAST);
-    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(3.0f, -1.0f, 4.0f),LIFE,ELAST);
+//    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(1.0f, 5.0f, 0.0f),LIFE,ELAST);
+//    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(1.0f, 0.0f, 0.0f),LIFE,ELAST);
+//    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(1.0f, 0.0f, 1.0f),LIFE,ELAST);
+//    PP->push(Vec3(0.0f, 1.0f, 4.0f), Vec3(0.20f, 5.0f, 0.0f),LIFE,ELAST);
+//    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(0.30f, 1.8f, 0.0f),LIFE,ELAST);
+//    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 1.0f, 1.0f),LIFE,ELAST);
+//    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f,- 1.0f, 5.0f),LIFE,ELAST);
+//    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(4.0f, 1.5f, 0.0f),LIFE,ELAST);
+//    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(2.0f, -1.5f, 0.0f),LIFE,ELAST);
+//    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(3.0f, 1.0f, 0.0f),LIFE,ELAST);
+//    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, -1.8f, 4.f),LIFE,ELAST);
+//    PP->push(Vec3(0.0f, 0.0f, 0.0f), Vec3(3.0f, -1.0f, 4.0f),LIFE,ELAST);
 
 
 
@@ -61,6 +51,17 @@ ParticleSystem::ParticleSystem(GLint _shader_ID, Camera* camera)
 //   glGenBuffers(1, &centerBuffer_ID);
 //   glBindBuffer(GL_ARRAY_BUFFER, centerBuffer_ID);
 //   glBufferData(GL_ARRAY_BUFFER, 4*sizeof(GLfloat), NULL, GL_STREAM_DRAW);
+}
+
+
+ParticlePool *ParticleSystem::getPart() const
+{
+    return PP;
+}
+
+ParticleRenderer *ParticleSystem::getRenderer() const
+{
+    return renderer;
 }
 
 ParticleSystem::~ParticleSystem()
@@ -137,42 +138,33 @@ ParticleSystem::~ParticleSystem()
 
 void ParticleSystem::update(float deltaTime/*, GLMatrix ViewMatrix*/)
 {
-//    part->updateParticule(deltaTime);
-//    GLfloat sizez = part->getSize();
-//    Vec3 center = part->getPosition();
 
-//    Vec3 cameraRight(ViewMatrix.m[0][0], ViewMatrix.m[1][0], ViewMatrix.m[2][0]);
-//    Vec3 cameraUp(ViewMatrix.m[0][1], ViewMatrix.m[1][1], ViewMatrix.m[2][1]);
+    int nbParticle = emitter->getNbParticle();
+    Particle* p;
+    if (PP->getSize() < nbParticle)
+    {
+        //We calculate the number of particle to generate in this frame.
+        int nbNewParticle = deltaTime * nbParticle;
+        //We check if the new number of particle will be greater than the max number of particle.
+        if(PP->getSize() + nbNewParticle > nbParticle)
+            nbNewParticle = nbParticle - PP->getSize() + nbNewParticle;
+        for (int i = 0; i<=nbNewParticle; ++i)
+        {
+            p = new Particle(camera);
+            emitter->createParticle(p);
+            PP->push(*p);
+        }
 
-//    Vec3 tmp[6];
+    }
+    else
+    {
+        std::vector<Particle> deadParticle = PP->findDeadParticle();
 
-//    GLfloat result[6*3];
+        for (std::vector<Particle>::iterator it = deadParticle.begin(); it != deadParticle.end(); ++it)
+        {
 
-//    for (int i = 0; i<6*3; i+=3)
-//    {
-//        tmp[i%3] = Vec3(renderer->tabVertices()[i], renderer->tabVertices()[i+1], renderer->tabVertices()[3]);
-//    }/*
-
-//    for(int i = 0; i<6; ++i)
-//    {
-//        tmp[i] = center + cameraRight*sizez*tmp[i].x + cameraUp*tmp[i].y*sizez;
-//    }*/
-
-//    for (int i = 0; i<6*3; i++){
-//        switch(i%3)
-//        {
-//        case 0:
-//            result[i] = tmp[i%6].x;
-//            break;
-//        case 1:
-//            result[i] = tmp[i%6].y;
-//            break;
-//        case 2:
-//            result[i] = tmp[i%6].z;
-//            break;
-//        }
-//    }
+            emitter->createParticle(&(*it));
+        }
+    }
     PP->step();
-
-//    glBufferSubData(GL_ARRAY_BUFFER, 0, 4*sizeof(GLfloat), center);
 }

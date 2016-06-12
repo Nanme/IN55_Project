@@ -18,7 +18,7 @@ private:
     bool isRightPressed = false;
     bool isDownPressed = false;
 
-    float frameRate = 1.0f/30.0f;
+    float frameRate = 1.0f/60.0f;
     float cameraSpeed = 20.0f;
     float mouseSensibility = 0.05f;
 

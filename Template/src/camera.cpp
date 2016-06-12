@@ -13,8 +13,6 @@ Camera::Camera(){
     right = Vec3(1.0f, 0.0f, 0.0f);
     up = Vec3(0.0f, 1.0f, 0.0f);
 
-    //m_Orientation.setFromAxis(0.0f, 0.0f, 0.0f, 1.0f);
-    //std::cout << "Quat : " << m_Orientation.w << " " << m_Orientation.x << " " << m_Orientation.y << " " << m_Orientation.z << std::endl;
 }
 
 Camera::Camera(float posX, float posY, float posZ):Camera(){
@@ -91,10 +89,6 @@ Camera::updateVectors(){
     forward.normalize();
     right.normalize();
     up.normalize();
-
-    /*std::cout << "forward : x: " << forward.x << " y : " << forward.y << " z : " << forward.z << std::endl;
-    std::cout << "right : x: " << right.x << " y : " << right.y << " z : " << right.z << std::endl;
-    std::cout << "up : x: " << up.x << " y : " << up.y << " z : " << up.z << std::endl;*/
 
 }
 
@@ -192,13 +186,6 @@ void Camera::buildViewMatrix(){
     m_ViewMatrix.m[2][0] = tmpMatRot[8] ; m_ViewMatrix.m[2][1] = tmpMatRot[9] ; m_ViewMatrix.m[2][2] = tmpMatRot[10] ; m_ViewMatrix.m[2][3] = tmpMatRot[11] ;
     m_ViewMatrix.m[3][0] = tmpMatRot[12] ; m_ViewMatrix.m[3][1] = tmpMatRot[13] ; m_ViewMatrix.m[3][2] = tmpMatRot[14] ; m_ViewMatrix.m[3][3] = tmpMatRot[15] ;
 
-    /*for(int i = 0 ; i < 4 ; i++){
-        for(int j = 0 ; j < 4 ; j++){
-            std::cout << m_ViewMatrix.m[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-    std::cout << "------------------" << std::endl;*/
 
     GLMatrix minusPosition;
     minusPosition.m[0][0] = 1.0f ; minusPosition.m[0][1] = 0.0f ; minusPosition.m[0][2] = 0.0f ; minusPosition.m[0][3] = -m_position.x ;
@@ -209,7 +196,6 @@ void Camera::buildViewMatrix(){
     delete tmpMatRot;
 
     m_ViewMatrix = m_ViewMatrix * minusPosition;
-    //m_ViewMatrix = m_ViewMatrix;
 
 
 

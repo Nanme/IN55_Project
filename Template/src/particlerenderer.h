@@ -34,7 +34,7 @@ private:
 
         1.0f, 1.0f, 1.0f,
         1.0f, 1.0f, 1.0f,
-        1.0f, 1.0f, 1.0f
+        1.0f, 1.0f, 1.0f,
     };
 
     GLfloat m_uvCoor[6*3] = {
@@ -43,7 +43,6 @@ private:
         1.0f, 0.0f,
         0.0f, 1.0f,
 
-        //Triangle 2
         0.0f, 1.0f,
         1.0f, 0.0f,
         1.0f, 1.0f,

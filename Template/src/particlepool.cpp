@@ -31,60 +31,60 @@ void ParticlePool::push(Particle p)
 
 void ParticlePool::step()
 {
-    for(vector<Particle>::iterator i = data.begin(); i != data.end(); ++i)
+    for(vector<Particle>::iterator it = data.begin(); it != data.end(); ++it)
     {
-        i->speed += gravite*frameRate;
-        i->updateParticule(frameRate);
+        it->speed += gravite*frameRate;
+        it->updateParticule(frameRate);
         if(floor)
         {
 
-            if(i->getPosition().y < *floor)
+            if(it->getPosition().y < *floor)
             {
-                i->speed.y = -i->speed.y * i->getElast() ;
+                it->speed.y = -it->speed.y * it->getElast() ;
             }
         }
         if(roof)
         {
 
-            if(i->getPosition().y > *roof)
+            if(it->getPosition().y > *roof)
             {
-                i->speed.y = -i->speed.y* i->getElast() ;
+                it->speed.y = -it->speed.y* it->getElast() ;
 
             }
         }
         if(wallxLeft)
         {
 
-            if(i->getPosition().x < *wallxLeft)
+            if(it->getPosition().x < *wallxLeft)
             {
-                i->speed.x = -i->speed.x * i->getElast() ;
+                it->speed.x = -it->speed.x * it->getElast() ;
 
             }
         }
         if(wallxRight)
         {
 
-            if(i->getPosition().x > *wallxRight)
+            if(it->getPosition().x > *wallxRight)
             {
-                i->speed.x = -i->speed.x * i->getElast() ;
+                it->speed.x = -it->speed.x * it->getElast() ;
 
             }
         }
         if(wallzNear)
         {
 
-            if(i->getPosition().z > *wallzNear)
+            if(it->getPosition().z > *wallzNear)
             {
-                i->speed.z = -i->speed.z * i->getElast() ;
+                it->speed.z = -it->speed.z * it->getElast() ;
 
             }
         }
         if(wallzFar)
         {
 
-            if(i->getPosition().z < *wallzFar)
+            if(it->getPosition().z < *wallzFar)
             {
-                i->speed.z = -i->speed.z * i->getElast() ;
+                it->speed.z = -it->speed.z * it->getElast() ;
 
             }
         }
@@ -95,9 +95,10 @@ std::list<GLMatrix> *ParticlePool::getModels()
 {
     std::sort(data.begin(),data.end());
     std::list<GLMatrix> *l = new list<GLMatrix>;
-    for (vector<Particle>::iterator i = data.begin(); i != data.end(); ++i)
+
+    for (vector<Particle>::iterator it = data.begin(); it != data.end(); ++it)
     {
-       l->push_back( i->getModel());
+        l->push_back( it->getModel());
     }
     return l;
 }
@@ -153,4 +154,23 @@ void ParticlePool::setWallzFar(float f)
     if(wallzFar)
         delete wallzFar;
     wallzFar = new float(f);
+}
+
+int ParticlePool::getSize()
+{
+    return data.size();
+}
+
+std::vector<Particle> ParticlePool::findDeadParticle()
+{
+
+    std::vector<Particle> deadParticle;
+    for (std::vector<Particle>::iterator it = data.begin(); it != data.end(); ++it)
+    {
+
+        if (it->getLife() >= it->getLife_ini()) {
+            deadParticle.push_back(*it);
+        }
+    }
+    return deadParticle;
 }

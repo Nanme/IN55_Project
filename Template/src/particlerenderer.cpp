@@ -57,9 +57,6 @@ GLfloat *ParticleRenderer::uvCoor()
 void ParticleRenderer::drawShape()
 {
 
-    glDisable(GL_CULL_FACE);
-    glDisable(GL_DEPTH_TEST);
-
     //Indices version
     /*-------------------------------------------------------------------------------------
     //Attribute m_TabVertices to position var in shader.
@@ -81,17 +78,23 @@ void ParticleRenderer::drawShape()
     glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_INT, m_TabIndices);
     --------------------------------------------------------------------------------------*/
 
+    glDisable(GL_CULL_FACE);
+    glDisable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     //Arrays version
     //Vertices
     GLint renderVertices_ID = glGetAttribLocation( m_shader_ID, "renderVertice" );
     glEnableVertexAttribArray(renderVertices_ID);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, m_TabRenderVertices);
+    glVertexAttribPointer(renderVertices_ID, 3, GL_FLOAT, GL_FALSE, 0, m_TabRenderVertices);
 
     //Color
     GLint color_ID = glGetAttribLocation( m_shader_ID, "color" );
     glEnableVertexAttribArray(color_ID);
     glVertexAttribPointer(color_ID, 3, GL_FLOAT, GL_FALSE, 0, m_TabColor);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
+    glVertexAttribPointer(color_ID, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
     //UV
     GLint uv_ID = glGetAttribLocation( m_shader_ID, "uv" );

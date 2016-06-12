@@ -27,6 +27,8 @@ public:
     void setWallxLeft(float);
     void setWallzNear(float);
     void setWallzFar(float);
+    int getSize();
+    std::vector<Particle> findDeadParticle();
 };
 
 #endif // PARTICLEPOOL_H

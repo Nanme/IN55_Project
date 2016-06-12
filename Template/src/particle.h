@@ -35,6 +35,7 @@ private:
 public:
 
     Vec3 speed;
+    Particle(Camera* _camera);
 
     //Builder
     Particle(Vec3 _startPosition, Vec3 _speed, Camera* _camera, float _life = 5);
@@ -73,6 +74,7 @@ public:
     void initializeParticule();
     //Utilities
     void calculateSquareDistanceToCamera();
+    float getLife_ini() const;
 };
 
 bool operator<(const Particle& a, const Particle& b);

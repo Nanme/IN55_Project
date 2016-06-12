@@ -5,6 +5,7 @@
 #include "particlerenderer.h"
 #include "particle.h"
 #include "particlepool.h"
+#include "particleemitter.h"
 
 class ParticleSystem //: public Object3D
 {
@@ -13,6 +14,7 @@ private:
 
     //Particle* part;
     ParticlePool *PP;
+    ParticleEmitter* emitter;
 
     GLuint verticeRenderBuffer_ID;
     GLuint colorBuffer_ID;
@@ -20,8 +22,10 @@ private:
 
     GLint shader_ID;
 
+    Camera* camera;
+
 public:
-    ParticleSystem(GLint _shader_ID, Camera* Camera);
+    ParticleSystem(GLint _shader_ID, Camera* Camera, ParticleEmitter* _emitter);
     ~ParticleSystem();
 //    void drawShape();
     void update(float deltaTime/*, GLMatrix ViewMatrix*/);

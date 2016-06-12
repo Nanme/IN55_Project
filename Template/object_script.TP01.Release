@@ -18,4 +18,6 @@ INPUT(
 ./obj\particle.o
 ./obj\particlesystem.o
 ./obj\particlepool.o
+./obj\coneemitter.o
+./obj\particleemitter.o
 );

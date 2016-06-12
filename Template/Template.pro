@@ -35,7 +35,9 @@ HEADERS += \
     src/quaternion.h \
     src/particle.h \
     particlesystem.h \
-    src/particlepool.h
+    src/particlepool.h \
+    src/coneemitter.h \
+    src/particleemitter.h
 
 SOURCES += \
     ../Common/GlFramework.cpp \
@@ -56,7 +58,9 @@ SOURCES += \
     src/quaternion.cpp \
     src/particle.cpp \
     particlesystem.cpp \
-    src/particlepool.cpp
+    src/particlepool.cpp \
+    src/coneemitter.cpp \
+    src/particleemitter.cpp
 
 
 

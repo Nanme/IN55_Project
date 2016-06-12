@@ -4,6 +4,7 @@
 #include "Shapes/Basis.h"
 #include "particlerenderer.h"
 #include "particlesystem.h"
+#include "coneemitter.h"
 
 #include <iostream>
 #include <cmath>
@@ -33,7 +34,6 @@ TP01::TP01()
 
     g_Basis = new Basis( 10.0 );
 
-    //cout << "test";
     camera = new Camera(0.0f, 5.0f, 30.0f, 4.0f/3.0f, 0.3f, 1000.0f, 60.0f);
     timeStart = clock();
 
@@ -67,7 +67,7 @@ TP01::initializeObjects()
     {
         cout << "Loaded!" << endl;
 //        g_particle = new ParticleRenderer("tex2d_pikachu.png", this->getCurrentShaderId());
-        g_particleSystem = new ParticleSystem(this->getCurrentShaderId(), camera);
+        g_particleSystem = new ParticleSystem(this->getCurrentShaderId(), camera, new ConeEmitter(1.0f, 3.0f, 10.0f, 3.0f, 1000));
     }
     else
     {
@@ -117,11 +117,6 @@ TP01::render()
     pViewMatrix = camera->getViewMatrix();
     pProjMatrix = camera->getProjectionMatrix();
 
-//    cout << "Camera (" << camera->getPosition().x << ", "
-//         << camera->getPosition().y
-//         << ", " << camera->getPosition().z
-//         << ")" << endl;
-
 	// Rendu des objets
     pushMatrix();
         g_particleSystem->update(frameRate);
@@ -130,18 +125,8 @@ TP01::render()
         for(list<GLMatrix>::iterator i = L->begin(); i != L->end() ; ++i)
         {
             pushMatrix();
-                //this->addCustomTransform(g_particleSystem->getPart()->View);
+                //this->addCustomTransform(g_particleSystem->getPart()->View)
                 this->addCustomTransform(*i);
-                //GLMatrix tmpMat = g_particleSystem->getPart()->getModel();
-
-                //tmpMat.cout();
-
-                //std::cout << tmpMat;
-        //            std::cout << "( " << tmpMat.data[0]  << ", " <<  tmpMat.data[1]  << ", " << tmpMat.data[2]  << ", " << tmpMat.data[3]  << ")" << std::endl;
-        //            std::cout << "( " << tmpMat.data[4]  << ", " <<  tmpMat.data[5]  << ", " << tmpMat.data[6]  << ", " << tmpMat.data[7]  << ")" << std::endl;
-        //            std::cout << "( " << tmpMat.data[8]  << ", " <<  tmpMat.data[9]  << ", " << tmpMat.data[10] << ", " << tmpMat.data[11] << ")" << std::endl;
-        //            std::cout << "( " << tmpMat.data[12] << ", " <<  tmpMat.data[13] << ", " << tmpMat.data[14] << ", " << tmpMat.data[15] << ")" << std::endl;
-
                 g_particleSystem->getRenderer()->draw();
             popMatrix();
 
@@ -171,19 +156,15 @@ TP01::keyPressEvent( QKeyEvent* event )
 
     if(!isForwardPressed && (/*event->key() == Qt::Key_Up ||*/ event->key() == Qt::Key_Z)){
         isForwardPressed = true;
-        cout << "isForwardPressed" << endl;
     }
     if(!isLeftPressed && (/*event->key() == Qt::Key_Left || */event->key() == Qt::Key_Q)){
         isLeftPressed = true;
-        cout << "isLeftPressed" << endl;
     }
     if(!isRightPressed && (/*event->key() == Qt::Key_Right ||*/ event->key() == Qt::Key_D)){
         isRightPressed = true;
-        cout << "isRightPressed" << endl;
     }
     if(!isDownPressed && (/*event->key() == Qt::Key_Down ||*/ event->key() == Qt::Key_S)){
         isDownPressed = true;
-        cout << "isDownPressed" << endl;
     }
     if(event->key() == Qt::Key_Escape)
         this->close();
@@ -223,18 +204,14 @@ TP01::keyPressEvent( QKeyEvent* event )
 void TP01::keyReleaseEvent(QKeyEvent *event){
     if(isForwardPressed && (event->key() == Qt::Key_Up || event->key() == Qt::Key_Z)){
         isForwardPressed = false;
-        cout << "isForwardPressed" << endl;
     }
     if(isLeftPressed && (event->key() == Qt::Key_Left || event->key() == Qt::Key_Q)){
         isLeftPressed = false;
-        cout << "isLeftPressed" << endl;
     }
     if(isRightPressed && (event->key() == Qt::Key_Right || event->key() == Qt::Key_D)){
         isRightPressed = false;
-        cout << "isRightPressed" << endl;
     }
     if(isDownPressed && (event->key() == Qt::Key_Down || event->key() == Qt::Key_S)){
         isDownPressed = false;
-        cout << "isDownPressed" << endl;
     }
 }
