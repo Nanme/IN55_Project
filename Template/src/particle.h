@@ -35,7 +35,7 @@ private:
 public:
 
     Vec3 speed;
-    Particle(Camera* _camera);
+    Particle(Camera* _camera, float _life = 5);
 
     //Builder
     Particle(Vec3 _startPosition, Vec3 _speed, Camera* _camera, float _life = 5);

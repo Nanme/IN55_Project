@@ -11,9 +11,9 @@ ParticleSystem::ParticleSystem(GLint _shader_ID, Camera* _camera, ParticleEmitte
     PP->setGravite(Vec3(0.0f,-1.0f,0.0f));
 
 //    PP->setFloor(-2.5f);
-//    PP->setWallxRight(2.5f);
+//    PP->setWallxRight(1.0f);
 //    PP->setWallzNear(20.f);
-//    PP->setRoof(8.f);
+//   PP->setRoof(3.f);
 //    PP->setWallxLeft(-2.5f);
 //    PP->setWallzFar(-2.5f);
 

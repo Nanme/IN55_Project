@@ -7,12 +7,13 @@ float Particle::getLife_ini() const
     return life_ini;
 }
 
-Particle::Particle(Camera *_camera)
+Particle::Particle(Camera *_camera, float _life)
 {
     camera = _camera;
     posCamera = _camera->getRefPosition();
     View = _camera->getRefViewMatrix();
-    this->life = 1.0f;
+    this->life = _life;
+    life_ini = _life;
 }
 
 Particle::Particle(Vec3 _startPosition, Vec3 _speed, Camera* _camera, float _life)
@@ -123,8 +124,8 @@ void Particle::updateParticule(float &deltaTime)
 
 
     //Update lifetime of the particle
-    life += deltaTime;
-    if (life >= life_ini)
+    life -= deltaTime;
+    if (life >= 0)
     {
         position = position + speed*deltaTime;
 
@@ -171,6 +172,10 @@ void Particle::updateParticule(float &deltaTime)
 
         model = model /** (*View)*/;
     }
+    else
+    {
+        initializeParticule();
+    }
 }
 
 void Particle::initializeParticule(Vec3 _startPosition, Vec3 _speed )
@@ -185,7 +190,7 @@ void Particle::initializeParticule(){
 
     position =position_ini;
     speed = speed_ini;
-    life = 0.0f;
+    life = life_ini;
 }
 
 void Particle::calculateSquareDistanceToCamera()

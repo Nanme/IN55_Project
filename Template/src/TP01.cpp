@@ -67,7 +67,7 @@ TP01::initializeObjects()
     {
         cout << "Loaded!" << endl;
 //        g_particle = new ParticleRenderer("tex2d_pikachu.png", this->getCurrentShaderId());
-        g_particleSystem = new ParticleSystem(this->getCurrentShaderId(), camera, new ConeEmitter(1.0f, 3.0f, 10.0f, 3.0f, 1000));
+        g_particleSystem = new ParticleSystem(this->getCurrentShaderId(), camera, new ConeEmitter(1.0f, 3.0f, 10.0f, 8.0f, 10000));
     }
     else
     {
@@ -108,8 +108,8 @@ TP01::render()
     float mDirx = lastMousePostion.x - currentMousePosition.x;
     float mDiry = lastMousePostion.y - currentMousePosition.y;
 
-    camera->rotateX(mDiry * mouseSensibility * frameRate);
-    camera->rotateY(mDirx * mouseSensibility * frameRate);
+    camera->rotateX(mDiry * mouseSensibility * frameRate*5);
+    camera->rotateY(mDirx * mouseSensibility * frameRate*5);
 
     lastMousePostion = currentMousePosition;
 
